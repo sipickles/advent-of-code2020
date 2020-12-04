@@ -61,7 +61,6 @@ for block in blocks:
     print('>', block_valid)
     if block_valid:
         valid += 1
-        #x = input('next?')
     else:
         invalid += 1
         print(byr_ok, iyr_ok, eyr_ok, hgt_ok, hcl_ok, ecl_ok, pid_ok)
