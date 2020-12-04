@@ -40,7 +40,7 @@ def validate_ecl(src):
     return re.search(pattern, src) != None 
     
 def validate_pid(src):
-    pattern = r'pid:\d{9}'
+    pattern = r'pid:\d{9}(\s|\n)'
     return re.search(pattern, src) != None
         
 valid = 0
@@ -48,6 +48,8 @@ invalid = 0
 
 blocks = get_blocks()
 for block in blocks:
+    # make regex work for fields at end of block
+    block += ' '
     byr_ok = validate_byr(block) 
     iyr_ok = validate_iyr(block)
     eyr_ok = validate_eyr(block)
@@ -57,13 +59,19 @@ for block in blocks:
     pid_ok = validate_pid(block)
     
     block_valid = byr_ok and iyr_ok and eyr_ok and hgt_ok and hcl_ok and ecl_ok and pid_ok
-    print(block)
-    print('>', block_valid)
+    #print('>', block_valid)
     if block_valid:
         valid += 1
     else:
         invalid += 1
-        print(byr_ok, iyr_ok, eyr_ok, hgt_ok, hcl_ok, ecl_ok, pid_ok)
+        print(block)
+        print("byr_ok", byr_ok)
+        print("iyr_ok", iyr_ok)
+        print("eyr_ok", eyr_ok)
+        print("hgt_ok", hgt_ok)
+        print("hcl_ok", hcl_ok)
+        print("ecl_ok", ecl_ok)
+        print("pid_ok", pid_ok)
 
     print('---')
 
